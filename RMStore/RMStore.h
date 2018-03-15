@@ -193,6 +193,17 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
  */
 - (void)removeStoreObserver:(id<RMStoreObserver>)observer;
 
+#pragma mark -
+
+/** Add completion handlers for a given product identifier without adding a payment request to the queue. `successBlock` will be called if the payment is successful, `failureBlock` if it isn't.
+ @param productIdentifier The identifier of the product whose payment will be requested.
+ @param successBlock The block to be called if the payment is sucessful. Can be `nil`.
+ @param failureBlock The block to be called if the payment fails or there isn't any product with the given identifier. Can be `nil`.
+ */
+- (void)addCompletionHandlersForIdentifier:(NSString*)productIdentifier
+                                   success:(void (^)(SKPaymentTransaction *transaction))successBlock
+                                   failure:(void (^)(SKPaymentTransaction *transaction, NSError *error))failureBlock;
+
 @end
 
 @protocol RMStoreContentDownloader <NSObject>

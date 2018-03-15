@@ -700,6 +700,16 @@ typedef void (^RMStoreSuccessBlock)();
     return parameters;
 }
 
+- (void)addCompletionHandlersForIdentifier:(NSString*)productIdentifier
+                                   success:(void (^)(SKPaymentTransaction *transaction))successBlock
+                                   failure:(void (^)(SKPaymentTransaction *transaction, NSError *error))failureBlock
+{
+    RMAddPaymentParameters *parameters = [[RMAddPaymentParameters alloc] init];
+    parameters.successBlock = successBlock;
+    parameters.failureBlock = failureBlock;
+    _addPaymentParameters[productIdentifier] = parameters;
+}
+
 #pragma mark SKRequestDelegate
 
 - (void)requestDidFinish:(SKRequest *)request
